@@ -1,21 +1,21 @@
-name: Build APK
+name: Build Flutter APK
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main  # atau 'master' tergantung nama cabangmu
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19.6"
+          flutter-version: '3.19.0'  # atau sesuaikan dengan versi Flutter-mu
 
       - name: Install dependencies
         run: flutter pub get
@@ -23,9 +23,8 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: timbangan-ayam-kandang-rizki-apk
+          name: timbangan-ayam-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
